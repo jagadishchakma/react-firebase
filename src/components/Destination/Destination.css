@@ -1,0 +1,28 @@
+.destination{
+    margin-top: 100px;
+}
+.location-input{
+    background-color: rgb(202, 212, 206);
+    padding: 30px;
+}
+.location-map{
+    background-color: white;
+    padding: 30px;
+}
+.location {
+    background-color: orangered;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.vehicle{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.vehicle li{
+    list-style-type: none;
+}
