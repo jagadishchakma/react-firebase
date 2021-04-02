@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
+import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import './OtherLogIn.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseConfig from '../AuthConfig/firebaseConfig';
-import { UserContext } from '../../App';
+import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import { UserContext } from '../../App';
+import firebaseConfig from '../AuthConfig/firebaseConfig';
+import './OtherLogIn.css';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -30,18 +30,15 @@ const OtherLogIn = () => {
         firebase.auth()
         .signInWithPopup(provider)
         .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
-
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = credential.accessToken;
             // The signed-in user info.
             const newUser = result.user;
             // set auth user
             const authUser = {...loggedInUser};
             authUser.name = newUser.displayName;
             authUser.email = newUser.email;
+            authUser.photoUrl  = newUser.photoURL;
             setLoggedInUser(authUser);
+            sessionStorage.setItem('user', JSON.stringify(authUser));
             // update user info
             const updateUser = {...user};
             updateUser.isLoggedIn = true;

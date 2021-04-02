@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
-import fakeData from '../../fakeData/fakeData.json';
-import Vehicle from '../Vehicle/Vehicle';
-import './Home.css';
+import React, { useEffect, useState } from 'react';
+import Products from '../Products/Products';
+import Search from '../Search/Search';
+import Spinner from '../Spinner/Spinner';
 
 const Home = () => {
-    const [vehicles, setvehicles] = useState(fakeData);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        setLoading(true);
+        fetch('https://pumpkin-crisp-14693.herokuapp.com/products')
+        .then((res) => res.json())
+        .then((data) => {
+            setProducts(data);
+            setLoading(false);
+        })
+    },[]);
+    document.title = 'Shopdrop online shopping ecommarce site'
     return (
-       <div className="home">
-            <div className="row">
-                {
-                    vehicles.map(data => <Vehicle vehicle={data} key={data.id}></Vehicle>)
-                }
+        <div className="home">
+            <Search/>
+            <div className="products">
+                <div className="row">
+                    {
+                        loading ? <Spinner/> : 
+                        products.map(product => <Products product={product} key={product._id}/>)
+                    }
+                </div>
             </div>
-        </div>    
+        </div>
     );
 };
 

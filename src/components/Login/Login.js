@@ -1,12 +1,12 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
+import firebaseConfig from '../AuthConfig/firebaseConfig';
 import OtherLogIn from '../OtherLogIn/OtherLogIn';
 import Form from './Form';
 import './Login.css';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import firebaseConfig from '../AuthConfig/firebaseConfig';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -14,6 +14,7 @@ if (!firebase.apps.length) {
 
 
 const Login = () => {
+    document.title="Shopdrop | User Login";
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [user, setUser] = useState({
         email: false,
@@ -71,6 +72,7 @@ const Login = () => {
                 const authUser = {...loggedInUser};
                 authUser.name = loginUser.displayName;
                 authUser.email = loginUser.email;
+                authUser.photoUrl = loginUser.photoURL;
                 setLoggedInUser(authUser);
         
                 // set up result

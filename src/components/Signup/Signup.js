@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { Link, useHistory, useLocation,  } from 'react-router-dom';
-import OtherLogIn from '../OtherLogIn/OtherLogIn';
-import './Signup.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseConfig from '../AuthConfig/firebaseConfig';
-import Form from './Form';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
+import firebaseConfig from '../AuthConfig/firebaseConfig';
+import OtherLogIn from '../OtherLogIn/OtherLogIn';
+import Form from './Form';
+import './Signup.css';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 const Signup = () => {
+    document.title = "Shopdrop | User Signup";
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [user, setUser] = useState({
         name: '',
@@ -26,6 +27,7 @@ const Signup = () => {
         password: false,
         confirmPass: false
     });
+
     const [loading, setLoading] = useState(false);
     // redirect route
     const history = useHistory();
